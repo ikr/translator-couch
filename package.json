@@ -4,7 +4,7 @@
   "description": "CouchDB schema for Magomogo/translator-utils and Magomogo/translator",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./tests",
+    "test": "mocha -b ./tests",
     "posttest": "jshint ./src ./tests index.js"
   },
   "repository": {
