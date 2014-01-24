@@ -22,5 +22,13 @@ describe('schema()', function () {
         it('include lib/pluralFunc', function () {
             assert(/function/.test(s.lib.pluralFunc));
         });
+
+        it('include views/lib/md5', function () {
+            assert(/function/.test(s.views.lib.md5));
+        });
+
+        it('include views/lib/hash', function () {
+            assert(/function/.test(s.views.lib.hash));
+        });
     });
 });

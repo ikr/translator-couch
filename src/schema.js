@@ -2,6 +2,8 @@
     'use strict';
 
     var fs = require('fs'),
+        couchModuleText = require('couch-js-devkit').couchModuleText,
+        hash = require('./hash'),
 
         messageformatJs = fs.readFileSync(
             __dirname + '/../node_modules/messageformat/messageformat.js',
@@ -28,6 +30,8 @@
             return memo;
         }, {}),
 
+        md5Js = fs.readFileSync(__dirname + '/../node_modules/blueimp-md5/js/md5.js', 'utf8'),
+
         language = function (locale) {
             return /^([a-z]+)_/.exec(locale)[1];
         };
@@ -38,6 +42,13 @@
                 locale: 'module.exports = ' + JSON.stringify(locale) + ';',
                 messageformat: messageformatJs,
                 pluralFunc: langToPluralFuncMap[language(locale)]
+            },
+
+            views: {
+                lib: {
+                    md5: [md5Js, 'module.exports = this.md5;'].join('/n'),
+                    hash: couchModuleText(hash, {md5: 'views/lib/md5'})
+                }
             }
         };
     };
