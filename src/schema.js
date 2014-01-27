@@ -50,11 +50,16 @@
             views: {
                 lib: {
                     md5: [md5Js, 'module.exports = this.md5;'].join('/n'),
-                    hash: devkit.couchModuleText(hash, {md5: 'views/lib/md5'})
+                    hash: devkit.couchModuleText(hash, {md5: 'views/lib/md5'}),
+                    emitNamespaces: devkit.couchModuleText(emitNamespaces)
                 },
 
                 all_namespaces: {
-                    map: devkit.couchModuleText(emitNamespaces),
+                    map: function (doc) {
+                        var emitNamespaces = require('views/lib/emitNamespaces');
+                        emitNamespaces(emit, doc);
+                    },
+
                     reduce: function () { return null; }
                 }
             }

@@ -33,6 +33,10 @@ describe('schema()', function () {
             assert(/function/.test(s.views.lib.hash));
         });
 
+        it('include views/lib/emitNamespaces', function () {
+            assert(/function/.test(s.views.lib.emitNamespaces));
+        });
+
         it('include views/all_namespaces/map', function () {
             assert(s.views.all_namespaces.map);
         });
