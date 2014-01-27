@@ -37,12 +37,20 @@ describe('schema()', function () {
             assert(/function/.test(s.views.lib.emitNamespaces));
         });
 
+        it('include views/lib/emitByNamespace', function () {
+            assert(/function/.test(s.views.lib.emitByNamespace));
+        });
+
         it('include views/all_namespaces/map', function () {
             assert(s.views.all_namespaces.map);
         });
 
         it('include views/all_namespaces/reduce', function () {
             assert(s.views.all_namespaces.reduce);
+        });
+
+        it('include views/translations/map', function () {
+            assert(s.views.translations.map);
         });
     });
 });

@@ -7,6 +7,7 @@
         devkit = require('couch-js-devkit'),
         hash = require('./hash'),
         emitNamespaces = require('./emitNamespaces'),
+        emitByNamespace = require('./emitByNamespace'),
 
         messageformatJs = fs.readFileSync(
             __dirname + '/../node_modules/messageformat/messageformat.js',
@@ -49,9 +50,10 @@
 
             views: {
                 lib: {
-                    md5: [md5Js, 'module.exports = this.md5;'].join('/n'),
+                    md5: [md5Js, 'module.exports = this.md5;'].join('\n'),
                     hash: devkit.couchModuleText(hash, {md5: 'views/lib/md5'}),
-                    emitNamespaces: devkit.couchModuleText(emitNamespaces)
+                    emitNamespaces: devkit.couchModuleText(emitNamespaces),
+                    emitByNamespace: devkit.couchModuleText(emitByNamespace)
                 },
 
                 all_namespaces: {
@@ -61,6 +63,15 @@
                     },
 
                     reduce: function () { return null; }
+                },
+
+                translations: {
+                    map: function (doc) {
+                        var hash = require('views/lib/hash'),
+                            emitByNamespace = require('views/lib/emitByNamespace');
+
+                        emitByNamespace(emit, hash, doc);
+                    }
                 }
             }
         };

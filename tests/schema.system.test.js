@@ -49,4 +49,12 @@ describe('installed schema', function () {
             done();
         });
     });
+
+    it('has functional translations view', function (done) {
+        db.view('main/translations', function (err, rows) {
+            assert(!err);
+            assert.strictEqual(lodash.last(rows).key, 'foo/bar');
+            done();
+        });
+    });
 });
