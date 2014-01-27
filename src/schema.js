@@ -83,6 +83,13 @@
 
                         emitSortedByNamespace(emit, hash, doc);
                     }
+                },
+
+                find: {
+                    map: function (doc) {
+                        var hash = require('views/lib/hash');
+                        emit(hash(doc), doc);
+                    }
                 }
             }
         };

@@ -60,5 +60,9 @@ describe('schema()', function () {
         it('include views/sorted_translations/map', function () {
             assert(s.views.sorted_translations.map);
         });
+
+        it('include views/find/map', function () {
+            assert(s.views.find.map);
+        });
     });
 });

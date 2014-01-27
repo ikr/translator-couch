@@ -65,4 +65,12 @@ describe('installed schema', function () {
             done();
         });
     });
+
+    it('has functional find view', function (done) {
+        db.view('main/find', function (err, rows) {
+            assert(!err);
+            assert.strictEqual(rows.length, 2);
+            done();
+        });
+    });
 });
