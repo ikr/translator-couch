@@ -41,6 +41,10 @@ describe('schema()', function () {
             assert(/function/.test(s.views.lib.emitByNamespace));
         });
 
+        it('include views/lib/emitSortedByNamespace', function () {
+            assert(/function/.test(s.views.lib.emitSortedByNamespace));
+        });
+
         it('include views/all_namespaces/map', function () {
             assert(s.views.all_namespaces.map);
         });
@@ -51,6 +55,10 @@ describe('schema()', function () {
 
         it('include views/translations/map', function () {
             assert(s.views.translations.map);
+        });
+
+        it('include views/sorted_translations/map', function () {
+            assert(s.views.sorted_translations.map);
         });
     });
 });

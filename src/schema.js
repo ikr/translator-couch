@@ -8,6 +8,7 @@
         hash = require('./hash'),
         emitNamespaces = require('./emitNamespaces'),
         emitByNamespace = require('./emitByNamespace'),
+        emitSortedByNamespace = require('./emitSortedByNamespace'),
 
         messageformatJs = fs.readFileSync(
             __dirname + '/../node_modules/messageformat/messageformat.js',
@@ -53,7 +54,8 @@
                     md5: [md5Js, 'module.exports = this.md5;'].join('\n'),
                     hash: devkit.couchModuleText(hash, {md5: 'views/lib/md5'}),
                     emitNamespaces: devkit.couchModuleText(emitNamespaces),
-                    emitByNamespace: devkit.couchModuleText(emitByNamespace)
+                    emitByNamespace: devkit.couchModuleText(emitByNamespace),
+                    emitSortedByNamespace: devkit.couchModuleText(emitSortedByNamespace)
                 },
 
                 all_namespaces: {
@@ -71,6 +73,15 @@
                             emitByNamespace = require('views/lib/emitByNamespace');
 
                         emitByNamespace(emit, hash, doc);
+                    }
+                },
+
+                sorted_translations: {
+                    map: function (doc) {
+                        var hash = require('views/lib/hash'),
+                            emitSortedByNamespace = require('views/lib/emitSortedByNamespace');
+
+                        emitSortedByNamespace(emit, hash, doc);
                     }
                 }
             }

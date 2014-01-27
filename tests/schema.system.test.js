@@ -57,4 +57,12 @@ describe('installed schema', function () {
             done();
         });
     });
+
+    it('has functional sorted_translations view', function (done) {
+        db.view('main/sorted_translations', function (err, rows) {
+            assert(!err);
+            assert.strictEqual(lodash.last(rows).key[0], 'foo/bar');
+            done();
+        });
+    });
 });
