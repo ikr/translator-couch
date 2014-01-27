@@ -1,0 +1,21 @@
+#!/usr/bin/env node
+
+(function () {
+    'use strict';
+
+    var install = require('../index.js');
+
+    if (process.argv.length < 4) {
+        console.info('Usage: translator-couch DB_NAME_PREFIX LOCALE_1 LOCALE_2 ...');
+        console.info('That will create a translations database for each of the locales');
+        console.info('If a database already exists, its schema gets updated. Translations are preserved');
+        process.exit(1);
+    }
+
+    install(process.argv[2], process.argv.slice(3), function (error, result) {
+        if (error) {
+            console.error(error);
+            process.exit(2);
+        }
+    });
+}());
