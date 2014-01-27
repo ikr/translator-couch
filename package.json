@@ -35,7 +35,8 @@
   "dependencies": {
     "blueimp-md5": "~1.1.0",
     "messageformat": "~0.1.6",
-    "couch-js-devkit": "~0.2.0"
+    "couch-js-devkit": "~0.2.0",
+    "cradle": "~0.6.6"
   },
   "devDependencies": {
     "mocha": "~1.17.0",
