@@ -9,6 +9,8 @@
         emitNamespaces = require('./emitNamespaces'),
         emitByNamespace = require('./emitByNamespace'),
         emitSortedByNamespace = require('./emitSortedByNamespace'),
+        compileJs = require('./compileJs'),
+        compilePo = require('./compilePo'),
 
         messageformatJs = fs.readFileSync(
             __dirname + '/../node_modules/messageformat/messageformat.js',
@@ -45,8 +47,11 @@
         return {
             lib: {
                 locale: 'module.exports = ' + JSON.stringify(locale) + ';',
+                language: 'module.exports = ' + JSON.stringify(language(locale)) + ';',
                 messageformat: messageformatJs,
-                pluralFunc: langToPluralFuncMap[language(locale)]
+                pluralFunc: langToPluralFuncMap[language(locale)],
+                compileJs: devkit.couchModuleText(compileJs),
+                compilePo: devkit.couchModuleText(compilePo)
             },
 
             views: {
@@ -90,6 +95,28 @@
                         var hash = require('views/lib/hash');
                         emit(hash(doc), doc);
                     }
+                }
+            },
+
+            lists: {
+                js: function () {
+                    provides('js', function () {
+                        var MessageFormat = require('lib/messageformat'),
+                            language = require('lib/language'),
+                            pluralFunc = require('lib/pluralFunc'),
+                            compileJs = require('lib/compileJs');
+
+                        return compileJs(getRow, MessageFormat, language, pluralFunc);
+                    });
+                },
+
+                po: function () {
+                    provides('text', function () {
+                        var locale = require('lib/locale'),
+                            compilePo = require('lib/compilePo');
+
+                        return compilePo(getRow, locale);
+                    });
                 }
             }
         };

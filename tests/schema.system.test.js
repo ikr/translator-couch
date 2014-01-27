@@ -3,12 +3,14 @@ describe('installed schema', function () {
 
     var assert = require('assert'),
         cradle = require('cradle'),
+        request = require('request'),
         async = require('async'),
         lodash = require('lodash'),
         devkit = require('couch-js-devkit'),
         schema = require('../src/schema'),
 
         dbName = function () { return 'test_translator_couch_v_1_0_0'; },
+        dbUrl = function () { return 'http://localhost:5984/' + dbName(); },
         db = new cradle.Connection().database(dbName());
 
     beforeEach(function (done) {
@@ -70,6 +72,24 @@ describe('installed schema', function () {
         db.view('main/find', function (err, rows) {
             assert(!err);
             assert.strictEqual(rows.length, 2);
+            done();
+        });
+    });
+
+    it('has functional js list', function (done) {
+        request(dbUrl() + '/_design/main/_list/js/translations', function (err, resp, body) {
+            assert(!err);
+            assert.strictEqual(resp.statusCode, 200);
+            assert(/i18n/.test(body));
+            done();
+        });
+    });
+
+    it('has functional po list', function (done) {
+        request(dbUrl() + '/_design/main/_list/po/translations', function (err, resp, body) {
+            assert(!err);
+            assert.strictEqual(resp.statusCode, 200);
+            assert(/msgstr "Bye"/.test(body));
             done();
         });
     });

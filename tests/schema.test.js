@@ -17,12 +17,24 @@ describe('schema()', function () {
             assert(/nl_NL/.test(s.lib.locale));
         });
 
+        it('include the language', function () {
+            assert(/nl/.test(s.lib.language));
+        });
+
         it('include lib/messageformat', function () {
             assert(/function/.test(s.lib.messageformat));
         });
 
         it('include lib/pluralFunc', function () {
             assert(/function/.test(s.lib.pluralFunc));
+        });
+
+        it('include lib/compileJs', function () {
+            assert(/function/.test(s.lib.compileJs));
+        });
+
+        it('include lib/compilePo', function () {
+            assert(/function/.test(s.lib.compilePo));
         });
 
         it('include views/lib/md5', function () {
@@ -63,6 +75,14 @@ describe('schema()', function () {
 
         it('include views/find/map', function () {
             assert(s.views.find.map);
+        });
+
+        it('include lists/js', function () {
+            assert(s.lists.js);
+        });
+
+        it('include lists/po', function () {
+            assert(s.lists.po);
         });
     });
 });
