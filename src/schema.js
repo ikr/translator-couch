@@ -1,9 +1,12 @@
+/* jshint camelcase:false */
+
 (function () {
     'use strict';
 
     var fs = require('fs'),
-        couchModuleText = require('couch-js-devkit').couchModuleText,
+        devkit = require('couch-js-devkit'),
         hash = require('./hash'),
+        emitNamespaces = require('./emitNamespaces'),
 
         messageformatJs = fs.readFileSync(
             __dirname + '/../node_modules/messageformat/messageformat.js',
@@ -47,7 +50,12 @@
             views: {
                 lib: {
                     md5: [md5Js, 'module.exports = this.md5;'].join('/n'),
-                    hash: couchModuleText(hash, {md5: 'views/lib/md5'})
+                    hash: devkit.couchModuleText(hash, {md5: 'views/lib/md5'})
+                },
+
+                all_namespaces: {
+                    map: devkit.couchModuleText(emitNamespaces),
+                    reduce: function () { return null; }
                 }
             }
         };

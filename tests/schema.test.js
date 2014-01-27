@@ -1,3 +1,5 @@
+/* jshint camelcase:false */
+
 describe('schema()', function () {
     'use strict';
 
@@ -29,6 +31,14 @@ describe('schema()', function () {
 
         it('include views/lib/hash', function () {
             assert(/function/.test(s.views.lib.hash));
+        });
+
+        it('include views/all_namespaces/map', function () {
+            assert(s.views.all_namespaces.map);
+        });
+
+        it('include views/all_namespaces/reduce', function () {
+            assert(s.views.all_namespaces.reduce);
         });
     });
 });
