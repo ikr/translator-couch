@@ -1,6 +1,6 @@
 {
   "name": "translator-couch",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CouchDB schema for Magomogo/translator-utils, Magomogo/translator, and ikr/translator-node",
   "main": "index.js",
   "bin": {
