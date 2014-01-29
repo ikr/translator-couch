@@ -56,6 +56,7 @@ describe('compileJs()', function () {
     beforeEach(function () {
         var window = {};
         eval(compileJs(stubGetRow(), MessageFormat, 'de', pluralFunc('de')));
+        delete MessageFormat.locale.de;
         i18n = window.i18n;
     });
 

@@ -50,6 +50,13 @@
             }
         }
 
-        return  '(function(g){' + 'g.i18n = {};\n' + js + '})(window);';
+        return [
+            '(function (g) {',
+            'var MessageFormat = {locale: {}};',
+            'MessageFormat.locale.' + language + ' = ' + pluralFunc.toString() + ';',
+            'g.i18n = {};',
+            js,
+            '})(window);'
+        ].join('\n') + '\n';
     };
 }());
