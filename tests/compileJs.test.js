@@ -1,7 +1,7 @@
 /* jshint nomen:false */
 /* jshint evil:true  */
 
-describe('compileJs()', function () {
+describe('compileJs', function () {
     'use strict';
 
     var fs = require('fs'),
@@ -20,6 +20,11 @@ describe('compileJs()', function () {
 
             return MessageFormat.locale[language];
         },
+
+        messageformatIncludeJs = fs.readFileSync(
+            __dirname + '/../node_modules/messageformat/lib/messageformat.include.js',
+            'utf8'
+        ),
 
         compileJs = require('../src/compileJs'),
 
@@ -55,7 +60,15 @@ describe('compileJs()', function () {
 
     beforeEach(function () {
         var window = {};
-        eval(compileJs(stubGetRow(), MessageFormat, 'de', pluralFunc('de')));
+
+        eval(compileJs(
+            stubGetRow(),
+            MessageFormat,
+            'de',
+            pluralFunc('de'),
+            messageformatIncludeJs
+        ));
+
         delete MessageFormat.locale.de;
         i18n = window.i18n;
     });

@@ -17,6 +17,11 @@
             'utf8'
         ),
 
+        messageformatIncludeJs = fs.readFileSync(
+            __dirname + '/../node_modules/messageformat/lib/messageformat.include.js',
+            'utf8'
+        ),
+
         langToPluralFuncMap = fs.readdirSync(
             __dirname + '/../node_modules/messageformat/locale'
         ).map(function (langFileName) {
@@ -49,6 +54,7 @@
                 locale: 'module.exports = ' + JSON.stringify(locale) + ';',
                 language: 'module.exports = ' + JSON.stringify(language(locale)) + ';',
                 messageformat: messageformatJs,
+                messageformatIncludeJs: 'module.exports = ' + JSON.stringify(messageformatIncludeJs) + ';',
                 pluralFunc: langToPluralFuncMap[language(locale)],
                 compileJs: devkit.couchModuleText(compileJs),
                 compilePo: devkit.couchModuleText(compilePo)
@@ -104,9 +110,16 @@
                         var MessageFormat = require('lib/messageformat'),
                             language = require('lib/language'),
                             pluralFunc = require('lib/pluralFunc'),
+                            messageformatIncludeJs = require('lib/messageformatIncludeJs'),
                             compileJs = require('lib/compileJs');
 
-                        return compileJs(getRow, MessageFormat, language, pluralFunc);
+                        return compileJs(
+                            getRow,
+                            MessageFormat,
+                            language,
+                            pluralFunc,
+                            messageformatIncludeJs
+                        );
                     });
                 },
 

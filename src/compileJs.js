@@ -3,7 +3,7 @@
 (function () {
     'use strict';
 
-    module.exports = function (getRow, MessageFormat, language, pluralFunc) {
+    module.exports = function (getRow, MessageFormat, language, pluralFunc, messageformatIncludeJs) {
         var js = '',
             mf = new MessageFormat(language, pluralFunc),
             row,
@@ -54,6 +54,7 @@
             '(function (g) {',
             'var MessageFormat = {locale: {}};',
             'MessageFormat.locale.' + language + ' = ' + pluralFunc.toString() + ';',
+            messageformatIncludeJs,
             'g.i18n = {};',
             js,
             '})(window);'
