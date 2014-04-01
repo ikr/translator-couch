@@ -1,6 +1,6 @@
 /* jshint camelcase:false */
 
-describe('schema()', function () {
+describe('schema', function () {
     'use strict';
 
     var assert = require('assert'),
@@ -83,6 +83,12 @@ describe('schema()', function () {
 
         it('include lists/po', function () {
             assert(s.lists.po);
+        });
+    });
+
+    describe('for country-less locale', function () {
+        it('parses out the language as well', function () {
+            assert(/"nl"/.test(schema('nl').lib.language));
         });
     });
 });
