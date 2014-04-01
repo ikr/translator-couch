@@ -40,7 +40,7 @@
         md5Js = fs.readFileSync(__dirname + '/../node_modules/blueimp-md5/js/md5.js', 'utf8'),
 
         language = function (locale) {
-            return /^([a-z]+)_/.exec(locale)[1];
+            return /^([a-z]+)(_|$)/.exec(locale)[1];
         };
 
     module.exports = function (locale) {
