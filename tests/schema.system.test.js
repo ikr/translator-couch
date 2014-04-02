@@ -13,6 +13,8 @@ describe('installed schema', function () {
         dbUrl = function () { return 'http://localhost:5984/' + dbName(); },
         db = new cradle.Connection().database(dbName());
 
+    this.timeout(4000);
+
     beforeEach(function (done) {
         async.series([
             function (callback) {
